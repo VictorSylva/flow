@@ -1,8 +1,8 @@
-# 🎙️ VoiceBud — The Prompts That Built It
+# 🎙️ Flow — The Prompts That Built It
 
-VoiceBud is a fully offline, privacy-first desktop voice dictation and audio transcription application for **Windows and macOS**.
+Flow is a fully offline, privacy-first desktop voice dictation and audio transcription application for **Windows and macOS**.
 
-This document describes how to recreate and evolve VoiceBud using **Antigravity** from a clean repository.
+This document describes how to recreate and evolve Flow using **Antigravity** from a clean repository.
 
 The prompts are intentionally written as a sequence rather than one enormous prompt. Each stage establishes a working foundation, verifies it, and then adds another capability without breaking what already works.
 
@@ -10,9 +10,9 @@ The goal is not simply to generate code. The goal is to have Antigravity **inspe
 
 ---
 
-## What VoiceBud Is
+## What Flow Is
 
-VoiceBud is a local alternative to cloud-based voice dictation tools such as Wispr Flow.
+Flow is a local alternative to cloud-based voice dictation tools such as Wispr Flow.
 
 It provides:
 
@@ -44,7 +44,7 @@ The architecture should remain **local-first and modular**, allowing individual 
 
 ---
 
-# How To Recreate VoiceBud
+# How To Recreate Flow
 
 Give the following prompts to Antigravity **in order**.
 
@@ -62,14 +62,14 @@ Before every major change, Antigravity should inspect the existing implementatio
 
 ## Objective
 
-Build the first complete working version of VoiceBud.
+Build the first complete working version of Flow.
 
 Give this prompt to Antigravity:
 
 ```text
-Build a production-quality desktop application called VoiceBud.
+Build a production-quality desktop application called Flow.
 
-VoiceBud is a fully offline, privacy-first voice dictation and audio transcription application for Windows and macOS.
+Flow is a fully offline, privacy-first voice dictation and audio transcription application for Windows and macOS.
 
 IMPORTANT DEVELOPMENT RULES
 
@@ -89,7 +89,7 @@ IMPORTANT DEVELOPMENT RULES
 
 CORE PRODUCT
 
-VoiceBud should provide two major capabilities:
+Flow should provide two major capabilities:
 
 A. REAL-TIME SYSTEM-WIDE DICTATION
 
@@ -97,12 +97,12 @@ The user should be able to:
 
 1. Focus any text field in any application.
 2. Press a configurable global hotkey.
-3. VoiceBud starts recording.
+3. Flow starts recording.
 4. A recording indicator/waveform appears.
 5. The user speaks.
 6. The user presses the hotkey again in toggle mode, or releases the hotkey in hold mode.
-7. VoiceBud transcribes the audio locally.
-8. VoiceBud optionally cleans the transcript using a local LLM.
+7. Flow transcribes the audio locally.
+8. Flow optionally cleans the transcript using a local LLM.
 9. The cleaned text is inserted at the current cursor position.
 
 It should work in applications such as:
@@ -274,7 +274,7 @@ It must NOT:
 
 Use a low temperature around 0.1.
 
-If the Ollama model is unavailable, VoiceBud must gracefully fall back to the raw Whisper transcript.
+If the Ollama model is unavailable, Flow must gracefully fall back to the raw Whisper transcript.
 
 SHORT-UTTERANCE OPTIMIZATION
 
@@ -287,7 +287,7 @@ CLIPBOARD SAFETY
 When injecting text:
 
 1. Save the user's current clipboard.
-2. Put the VoiceBud transcript into the clipboard.
+2. Put the Flow transcript into the clipboard.
 3. Trigger the platform's paste action.
 4. Wait enough time for the paste operation.
 5. Restore the user's original clipboard.
@@ -347,12 +347,12 @@ At the end, provide:
 
 ---
 
-# Prompt 2 — Make VoiceBud a Real Desktop Application
+# Prompt 2 — Make Flow a Real Desktop Application
 
 Once the core dictation pipeline works:
 
 ```text
-Now turn VoiceBud from a script into a proper desktop application.
+Now turn Flow from a script into a proper desktop application.
 
 IMPORTANT:
 
@@ -368,13 +368,13 @@ Implement:
 
 2. macOS menu-bar integration.
 
-3. VoiceBud should continue running in the background after its main window is closed.
+3. Flow should continue running in the background after its main window is closed.
 
 4. Add a tray/menu-bar icon.
 
 5. Provide at minimum:
 
-   - Start/Stop VoiceBud
+   - Start/Stop Flow
    - Open Transcription
    - Settings if applicable
    - About
@@ -384,7 +384,7 @@ Implement:
 
 7. Show an appropriate application name:
 
-   VoiceBud
+   Flow
 
 rather than generic names such as Python.
 
@@ -392,7 +392,7 @@ rather than generic names such as Python.
 
 9. Make sure the background process does not terminate when the transcription GUI is closed.
 
-10. Make sure only one VoiceBud background instance can run at a time.
+10. Make sure only one Flow background instance can run at a time.
 
 11. Handle clean shutdown properly.
 
@@ -410,13 +410,13 @@ First make the application lifecycle reliable.
 # Prompt 3 — Global Hotkey System
 
 ```text
-Improve VoiceBud's global hotkey system.
+Improve Flow's global hotkey system.
 
 IMPORTANT:
 
 Preserve the existing recording/transcription pipeline.
 
-The hotkey system must work globally, not only when the VoiceBud window is focused.
+The hotkey system must work globally, not only when the Flow window is focused.
 
 Implement configurable hotkeys supporting:
 
@@ -480,7 +480,7 @@ Do not use F5 as the default.
 
 Do not claim that every possible keyboard key is available on every operating system. Respect platform limitations.
 
-After implementation, test the hotkey from outside the VoiceBud application, including while another application is focused.
+After implementation, test the hotkey from outside the Flow application, including while another application is focused.
 ```
 
 ---
@@ -488,11 +488,11 @@ After implementation, test the hotkey from outside the VoiceBud application, inc
 # Prompt 4 — Recording Waveform and Visual Feedback
 
 ```text
-Add a professional recording indicator to VoiceBud.
+Add a professional recording indicator to Flow.
 
 Do not change the existing audio recording or transcription logic unless necessary.
 
-When VoiceBud begins recording:
+When Flow begins recording:
 
 1. Display a small floating waveform/pill.
 
@@ -502,7 +502,7 @@ When VoiceBud begins recording:
 
 4. It should clearly communicate:
 
-   VoiceBud is recording.
+   Flow is recording.
 
 5. Animate the waveform using the REAL microphone amplitude.
 
@@ -532,7 +532,7 @@ Transcribing
 Cleaning
 Done
 
-The user should always know what VoiceBud is currently doing.
+The user should always know what Flow is currently doing.
 ```
 
 ---
@@ -542,7 +542,7 @@ The user should always know what VoiceBud is currently doing.
 ```text
 Now audit and improve the Whisper transcription pipeline.
 
-Do not change the public behavior of VoiceBud.
+Do not change the public behavior of Flow.
 
 Inspect:
 
@@ -604,7 +604,7 @@ Test both live microphone transcription and audio-file transcription.
 # Prompt 6 — Local LLM Cleanup That Does Not Rewrite the User
 
 ```text
-Audit the VoiceBud LLM cleanup system.
+Audit the Flow LLM cleanup system.
 
 The purpose of the LLM is transcript cleanup, NOT content generation.
 
@@ -686,11 +686,11 @@ The final text must remain faithful to the original speech.
 # Prompt 7 — Audio Transcription GUI
 
 ```text
-Build the VoiceBud audio transcription dashboard.
+Build the Flow audio transcription dashboard.
 
 Do not remove real-time dictation.
 
-Add a proper desktop GUI accessible from the VoiceBud tray/menu-bar icon.
+Add a proper desktop GUI accessible from the Flow tray/menu-bar icon.
 
 The interface should allow the user to:
 
@@ -725,7 +725,7 @@ The interface should allow the user to:
 
 10. Save the result as a .txt file.
 
-11. Start another transcription without restarting VoiceBud.
+11. Start another transcription without restarting Flow.
 
 12. Handle errors gracefully.
 
@@ -747,7 +747,7 @@ Test with several supported formats.
 # Prompt 8 — Batch CLI Mode
 
 ```text
-Add a command-line interface to VoiceBud without breaking the desktop application.
+Add a command-line interface to Flow without breaking the desktop application.
 
 The CLI must reuse the SAME transcription engine used by the GUI.
 
@@ -801,7 +801,7 @@ IMPORTANT:
 
 Do not modify the working transcription engine.
 
-VoiceBud should be able to run automatically when Windows starts.
+Flow should be able to run automatically when Windows starts.
 
 The user should not need to manually open a terminal and run:
 
@@ -811,16 +811,16 @@ Implement a reliable startup mechanism.
 
 The normal background mode should:
 
-- start VoiceBud at login
+- start Flow at login
 - run without opening a visible console window
 - keep the system tray icon available
 - keep global hotkeys active
 - keep microphone recording available
-- allow the user to quit VoiceBud from the tray
+- allow the user to quit Flow from the tray
 
 Use pythonw.exe or an appropriate Windows application-launch mechanism where suitable.
 
-Do not install VoiceBud as a Windows service if that would interfere with interactive microphone/input permissions.
+Do not install Flow as a Windows service if that would interfere with interactive microphone/input permissions.
 
 Provide a safe install/uninstall mechanism for startup.
 
@@ -828,10 +828,10 @@ Do not create duplicate startup entries.
 
 Test:
 
-1. Start VoiceBud manually.
+1. Start Flow manually.
 2. Enable startup.
 3. Restart/log out and back in.
-4. Confirm VoiceBud starts.
+4. Confirm Flow starts.
 5. Confirm tray icon appears.
 6. Confirm global hotkey works.
 7. Confirm dictation works.
@@ -846,7 +846,7 @@ Now implement reliable macOS background startup.
 
 Do not break Windows support.
 
-VoiceBud should be able to run automatically when the user logs in.
+Flow should be able to run automatically when the user logs in.
 
 Use a macOS LaunchAgent or an appropriate user-level launch mechanism.
 
@@ -861,7 +861,7 @@ Requirements:
 - supports clean shutdown
 - can be enabled/disabled
 
-Do not run VoiceBud as a privileged system daemon.
+Do not run Flow as a privileged system daemon.
 
 Use the user's environment and virtual environment correctly.
 
@@ -889,7 +889,7 @@ Test the LaunchAgent lifecycle.
 ```text
 Perform a full Windows/macOS compatibility audit.
 
-VoiceBud must remain one application with platform-specific implementations where required.
+Flow must remain one application with platform-specific implementations where required.
 
 Inspect every use of:
 
@@ -948,7 +948,7 @@ After the audit, run the application on the platform currently available and per
 # Prompt 12 — Settings and Configuration
 
 ```text
-Improve VoiceBud's configuration system.
+Improve Flow's configuration system.
 
 The user should not have to edit Python source code to customize normal behavior.
 
@@ -1020,7 +1020,7 @@ Changing that value should be enough to switch the cleanup model.
 # Prompt 13 — Reliability, Error Handling and Recovery
 
 ```text
-Perform a reliability audit of the entire VoiceBud application.
+Perform a reliability audit of the entire Flow application.
 
 Do not add features.
 
@@ -1043,7 +1043,7 @@ Test:
 13. Clipboard unavailable.
 14. Text injection failure.
 15. Global hotkey conflict.
-16. Multiple VoiceBud instances.
+16. Multiple Flow instances.
 17. GUI closed while transcription is running.
 18. Application shutdown while recording.
 19. User presses the hotkey rapidly several times.
@@ -1074,7 +1074,7 @@ After the audit, run a complete end-to-end dictation test.
 # Prompt 14 — Performance and Latency Optimization
 
 ```text
-Now optimize VoiceBud for practical local performance.
+Now optimize Flow for practical local performance.
 
 Do not sacrifice transcription accuracy or reliability simply to produce an artificial benchmark.
 
@@ -1128,11 +1128,11 @@ Do not claim "sub-second" performance unless the actual test demonstrates it on 
 # Prompt 15 — Security and Privacy Audit
 
 ```text
-Perform a privacy and security audit of VoiceBud.
+Perform a privacy and security audit of Flow.
 
 The core requirement is:
 
-VoiceBud must operate locally.
+Flow must operate locally.
 
 Verify that microphone audio and transcripts are not sent to cloud APIs.
 
@@ -1171,7 +1171,7 @@ The final application should be accurately described as local/offline after mode
 # Prompt 16 — Final UX and Product Polish
 
 ```text
-Now perform a product-quality review of VoiceBud.
+Now perform a product-quality review of Flow.
 
 Do not redesign the entire application.
 
@@ -1212,7 +1212,7 @@ Press hotkey
 
 The secondary experience should remain:
 
-Open VoiceBud
+Open Flow
 → Select audio file
 → Transcribe
 → Review/edit
@@ -1228,7 +1228,7 @@ This is the final production audit.
 
 Do not add new features unless they are required to fix a real issue.
 
-Inspect the entire VoiceBud repository.
+Inspect the entire Flow repository.
 
 Verify that:
 
@@ -1279,7 +1279,7 @@ Do not make speculative changes.
 
 After the audit, run the most important end-to-end workflow:
 
-1. Start VoiceBud.
+1. Start Flow.
 2. Focus a text editor.
 3. Trigger the global hotkey.
 4. Record speech.
@@ -1291,7 +1291,7 @@ After the audit, run the most important end-to-end workflow:
 
 Then test one audio file.
 
-Only after these workflows work should you declare VoiceBud ready.
+Only after these workflows work should you declare Flow ready.
 ```
 
 ---
@@ -1302,7 +1302,7 @@ The resulting application should conceptually follow this pipeline:
 
 ```text
                     ┌─────────────────────┐
-                    │      VoiceBud       │
+                    │        Flow         │
                     │   Desktop Utility   │
                     └──────────┬──────────┘
                                │
@@ -1364,7 +1364,7 @@ The resulting application should conceptually follow this pipeline:
 A clean implementation can use a structure similar to:
 
 ```text
-VoiceBud/
+Flow/
 │
 ├── main.py
 ├── config.py
@@ -1403,13 +1403,13 @@ The important architectural principle is:
 
 ---
 
-# VoiceBud's Core Design Principles
+# Flow's Core Design Principles
 
 These principles should survive future development.
 
 ### 1. Local First
 
-VoiceBud should process speech locally.
+Flow should process speech locally.
 
 No cloud transcription is required.
 
@@ -1417,7 +1417,7 @@ No cloud transcription is required.
 
 The LLM is a cleanup layer, not a writing assistant.
 
-VoiceBud should improve readability without changing meaning.
+Flow should improve readability without changing meaning.
 
 ### 3. Fast Path First
 
@@ -1457,14 +1457,14 @@ A feature is not considered complete merely because the code compiles.
 
 # Final User Experience
 
-The primary VoiceBud workflow should feel like this:
+The primary Flow workflow should feel like this:
 
 ```text
 User is typing anywhere
         ↓
 Press Ctrl + Shift
         ↓
-VoiceBud recording indicator appears
+Flow recording indicator appears
         ↓
 User speaks naturally
         ↓
@@ -1491,7 +1491,7 @@ Text inserted at cursor
 For audio files:
 
 ```text
-Open VoiceBud
+Open Flow
       ↓
 Select audio file
       ↓

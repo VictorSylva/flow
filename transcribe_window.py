@@ -1,4 +1,4 @@
-"""VoiceBud - Audio File Transcription Window.
+"""Flow - Audio File Transcription Window.
 Provides a modern dark-themed GUI for selecting, transcribing, previewing,
 editing, LLM-cleaning, copying, and saving audio file transcripts.
 """
@@ -34,7 +34,7 @@ class TranscribeWindow:
 
         # Create window
         self.win = tk.Toplevel(master) if master else tk.Tk()
-        self.win.title("VoiceBud — Transcribe Audio File")
+        self.win.title("Flow — Transcribe Audio File")
         self.win.geometry("740x580")
         self.win.minsize(580, 440)
         self.win.configure(bg="#121214")
@@ -121,14 +121,14 @@ class TranscribeWindow:
         style = ttk.Style()
         style.theme_use("default")
         style.configure(
-            "VoiceBud.Horizontal.TProgressbar",
+            "Flow.Horizontal.TProgressbar",
             troughcolor="#18181b",
             background="#8b5cf6",
             thickness=6,
         )
         self.progress_bar = ttk.Progressbar(
             self.win,
-            style="VoiceBud.Horizontal.TProgressbar",
+            style="Flow.Horizontal.TProgressbar",
             orient="horizontal",
             mode="determinate",
         )

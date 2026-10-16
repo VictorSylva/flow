@@ -1,4 +1,4 @@
-"""VoiceBud: hold or toggle your hotkey to dictate anywhere. Fully offline.
+"""Flow: hold or toggle your hotkey to dictate anywhere. Fully offline.
 Also supports batch transcribing audio files via GUI window or CLI.
 
 Windows Setup:
@@ -24,7 +24,7 @@ from overlay import Overlay
 from transcribe import Transcriber
 from transcribe_window import TranscribeWindow
 
-APP_NAME = "VoiceBud"
+APP_NAME = "Flow"
 IS_MACOS = sys.platform == "darwin"
 
 
@@ -57,7 +57,7 @@ def check_permissions():
 
 
 def rename_app():
-    """Best-effort: show 'VoiceBud' instead of 'Python' on macOS."""
+    """Best-effort: show 'Flow' instead of 'Python' on macOS."""
     if not IS_MACOS:
         return
     try:
@@ -92,7 +92,7 @@ def create_windows_tray(hotkey_str, on_transcribe, on_quit):
             pystray.Menu.SEPARATOR,
             pystray.MenuItem(f"Quit {APP_NAME}", on_quit),
         )
-        return pystray.Icon("VoiceBud", img, APP_NAME, menu)
+        return pystray.Icon("Flow", img, APP_NAME, menu)
     except Exception as e:
         print(f"(System tray icon note: {e})")
         return None
@@ -146,7 +146,7 @@ def run_cli_file_transcription(file_path, output_path=None, copy_to_clipboard=Fa
 
 
 def main():
-    parser = argparse.ArgumentParser(description="VoiceBud: Fully offline speech dictation and audio file transcription.")
+    parser = argparse.ArgumentParser(description="Flow: Fully offline speech dictation and audio file transcription.")
     parser.add_argument("-f", "--file", help="Path to an audio file to transcribe directly from CLI")
     parser.add_argument("-o", "--output", help="Save CLI transcription output to this text file")
     parser.add_argument("-c", "--clipboard", action="store_true", help="Copy transcription output to clipboard")

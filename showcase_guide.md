@@ -1,7 +1,7 @@
-# 🎙️ VoiceBud — Showcase, Content & Presentation Guide
+# 🎙️ Flow — Showcase, Content & Presentation Guide
 ### *A Guide for Showcasing as a Data Scientist & AI/ML Engineer*
 
-This document provides a step-by-step roadmap to showcase **VoiceBud** across **YouTube**, **LinkedIn**, and **technical interviews**. It includes full video scripts, visual cues, LinkedIn post templates, and the exact architectural talking points to explain your engineering choices with confidence.
+This document provides a step-by-step roadmap to showcase **Flow** across **YouTube**, **LinkedIn**, and **technical interviews**. It includes full video scripts, visual cues, LinkedIn post templates, and the exact architectural talking points to explain your engineering choices with confidence.
 
 ---
 
@@ -29,21 +29,21 @@ Use these technical explanations during video voiceovers, LinkedIn comments, or 
 - **Greedy Decoding (`beam_size=1`)**: Rather than a computationally expensive multi-beam search, greedy decoding is used because conversational dictation requires sub-second response times without noticeable word-error degradation.
 
 ### 2. Audio Processing: Silero VAD & The Pre-Roll Buffer
-- **Silence Hallucination Prevention**: Whisper models are autoregressive and prone to hallucinating repetitive text or phantom phrases when fed background noise or silence. VoiceBud activates `vad_filter=True` (powered by Silero VAD) to segment audio and filter out acoustic noise before token generation.
+- **Silence Hallucination Prevention**: Whisper models are autoregressive and prone to hallucinating repetitive text or phantom phrases when fed background noise or silence. Flow activates `vad_filter=True` (powered by Silero VAD) to segment audio and filter out acoustic noise before token generation.
 - **The First-Word Clipping Problem**: In push-to-talk apps, humans naturally start vocalizing 100–300 ms before or simultaneously with a hotkey trigger. Without pre-buffering, initial consonants ("P", "T", "S") get truncated.
 - **The Fix**: `audio.py` runs a continuous 500 ms circular FIFO ring buffer. When the hotkey fires, the buffered 500 ms is automatically prepended to the recording stream.
 
 ### 3. LLM Post-Processing: Prompt Guardrails & Latency Routing
-- **Small Language Models (SLMs)**: Running a 70B parameter model locally causes prohibitive latency. VoiceBud leverages highly capable edge models: `qwen3:4b-instruct` or `llama3.2:3b` via Ollama.
+- **Small Language Models (SLMs)**: Running a 70B parameter model locally causes prohibitive latency. Flow leverages highly capable edge models: `qwen3:4b-instruct` or `llama3.2:3b` via Ollama.
 - **The Conversational Trap**: Instruction-tuned SLMs often attempt to *answer* whatever is spoken (e.g., if you say *"What time is our meeting?"*, the model responds *"I don't know your schedule"* instead of cleaning the text).
 - **Prompt Guardrail**: The system prompt strictly bounds the task:
   > *"Your ONLY job: remove filler words, fix capitalization, and fix punctuation. Output the cleaned text and NOTHING else. NEVER rewrite, rephrase, or answer."*
-- **Disabling Reasoning Mode (`think: false`)**: Reasoning models (like Qwen 3 or DeepSeek) generate internal `<think>` tokens that take 10–30 seconds. VoiceBud passes `"think": false` in the Ollama API payload to force deterministic, single-pass token emission.
-- **Dynamic Latency Routing**: For utterances under 10 words, VoiceBud skips the LLM step entirely. Short confirmations ("Sounds good.", "Thanks!") paste in <600 ms.
+- **Disabling Reasoning Mode (`think: false`)**: Reasoning models (like Qwen 3 or DeepSeek) generate internal `<think>` tokens that take 10–30 seconds. Flow passes `"think": false` in the Ollama API payload to force deterministic, single-pass token emission.
+- **Dynamic Latency Routing**: For utterances under 10 words, Flow skips the LLM step entirely. Short confirmations ("Sounds good.", "Thanks!") paste in <600 ms.
 
 ### 4. System-Level Integration & Zero-Window Backgrounding
-- **OS Text Injection**: Instead of slow simulated keystrokes, VoiceBud copies cleaned text to the OS clipboard, simulates a synthetic `Ctrl+V` (or `Cmd+V` on macOS), and immediately restores the user's previous clipboard buffer.
-- **Windowless Execution (`pythonw.exe`)**: Python on Windows provides `pythonw.exe`, which detaches the process from any console/terminal. Combined with Windows Startup shortcut scripts, VoiceBud runs silently in the system tray.
+- **OS Text Injection**: Instead of slow simulated keystrokes, Flow copies cleaned text to the OS clipboard, simulates a synthetic `Ctrl+V` (or `Cmd+V` on macOS), and immediately restores the user's previous clipboard buffer.
+- **Windowless Execution (`pythonw.exe`)**: Python on Windows provides `pythonw.exe`, which detaches the process from any console/terminal. Combined with Windows Startup shortcut scripts, Flow runs silently in the system tray.
 
 ---
 
@@ -55,7 +55,7 @@ Use these technical explanations during video voiceovers, LinkedIn comments, or 
   2. *Stop Paying for Cloud Dictation: Building a Local AI Speech-to-Text App*
   3. *Local Edge AI: Building a Real-Time Voice Dictation System with CTranslate2 & Ollama*
 - **Thumbnail Concept**:
-  - Split screen: Left side = Wispr Flow ($15/mo crossed out) | Right side = VoiceBud (100% Free & Local).
+  - Split screen: Left side = Wispr Flow ($15/mo crossed out) | Right side = Flow (100% Free & Local).
   - Graphic: Mic icon → CTranslate2 → Ollama → Cursor.
 - **Video Duration**: 7–10 minutes.
 
@@ -71,7 +71,7 @@ Use these technical explanations during video voiceovers, LinkedIn comments, or 
 - **Action**: You press `ctrl+shift` again. Within ~1 second, the perfectly cleaned sentence appears at your cursor:
   > *"Hey team, just wanted to check in on the deployment timeline for Friday. Let me know if that works."*
 - **Speaking to Camera**:
-  > *"Notice what just happened. No 'ums', no 'ahs', perfect punctuation, pasted directly at my cursor in any app I was using. And the best part? Not a single byte of that audio left my computer. No API keys, no monthly subscriptions, and 100% offline. Today, I'm going to break down how I built VoiceBud—a fully offline, privacy-first alternative to Wispr Flow using `faster-whisper`, local LLMs via Ollama, and Python."*
+  > *"Notice what just happened. No 'ums', no 'ahs', perfect punctuation, pasted directly at my cursor in any app I was using. And the best part? Not a single byte of that audio left my computer. No API keys, no monthly subscriptions, and 100% offline. Today, I'm going to break down how I built Flow—a fully offline, privacy-first alternative to Wispr Flow using `faster-whisper`, local LLMs via Ollama, and Python."*
 
 ---
 
@@ -85,9 +85,9 @@ Use these technical explanations during video voiceovers, LinkedIn comments, or 
 ---
 
 #### **Scene 3: System Architecture Deep Dive (1:45 – 4:00)**
-- **Visual**: Full-screen graphic of the VoiceBud Architecture Diagram (from the README).
+- **Visual**: Full-screen graphic of the Flow Architecture Diagram (from the README).
 - **Speaking**:
-  > *"Let's look under the hood at the 4-stage pipeline that makes VoiceBud feel instant and accurate:*
+  > *"Let's look under the hood at the 4-stage pipeline that makes Flow feel instant and accurate:*
   >
   > *1. **Audio Capture with a 500ms Circular Pre-Roll Buffer**: When you press a hotkey to speak, human speech naturally starts a split-second before or right as your finger hits the key. If you start recording strictly on key-down, the first consonant of your sentence gets cut off. We solved this by maintaining a continuous 500 ms ring buffer in `sounddevice`. When dictation starts, the pre-roll is automatically stitched in front.*
   >
@@ -95,7 +95,7 @@ Use these technical explanations during video voiceovers, LinkedIn comments, or 
   >
   > *3. **Intelligent Post-Processing with Local SLMs**: Raw transcripts contain stumbles, filler words, and missing capitalization. We route the text to an on-device LLM running in Ollama—by default, `qwen3:4b-instruct` or `llama3.2:3b`. But here's an engineering catch: instruction models love to chat. If you dictate 'What is the capital of France?', a naive LLM will answer 'Paris' instead of cleaning your words! We engineered strict system guardrails and set `think: false` so it acts strictly as a deterministic text sanitizer.*
   >
-  > *4. **Dynamic Latency Routing**: Running a 4B model takes around 300 to 600 milliseconds. If you only say 'Sounds good!' or 'Thank you', why waste compute? VoiceBud has a smart rule: any utterance under 10 words bypasses the LLM step entirely and pastes instantly."*
+  > *4. **Dynamic Latency Routing**: Running a 4B model takes around 300 to 600 milliseconds. If you only say 'Sounds good!' or 'Thank you', why waste compute? Flow has a smart rule: any utterance under 10 words bypasses the LLM step entirely and pastes instantly."*
 
 ---
 
@@ -103,7 +103,7 @@ Use these technical explanations during video voiceovers, LinkedIn comments, or 
 - **Visual**: Right-click the `🎙️` tray icon → click "Transcribe Audio File...".
 - **Action**: Pick an audio file (e.g. `.mp3` meeting or interview).
 - **Speaking**:
-  > *"In addition to real-time dictation, I also built an audio file transcription suite into VoiceBud. If you record a meeting or a voice memo on your phone, you can right-click the system tray icon, select 'Transcribe Audio File', and drop any MP3, WAV, or M4A file.*
+  > *"In addition to real-time dictation, I also built an audio file transcription suite into Flow. If you record a meeting or a voice memo on your phone, you can right-click the system tray icon, select 'Transcribe Audio File', and drop any MP3, WAV, or M4A file.*
   >
   > *You get a dark-themed interactive window with real-time progress, an editable text area, one-click clipboard copying, file export, and a toggle to switch between the raw transcript and the LLM-cleaned version."*
 
@@ -114,12 +114,12 @@ Use these technical explanations during video voiceovers, LinkedIn comments, or 
 - **Speaking**:
   > *"A huge friction point with Python projects is having to open VS Code or run terminal commands every time you want to use the tool. Nobody wants a black terminal window sitting on their taskbar all day.*
   >
-  > *To solve this, I wrote deployment scripts utilizing Windows' built-in `pythonw.exe`. With one command: `python setup_startup.py`, VoiceBud registers itself into Windows Startup. It boots with your computer, lives quietly in the system tray, and consumes negligible idle CPU. You can also generate a one-click Desktop shortcut with `create_desktop_shortcut.py`."*
+  > *To solve this, I wrote deployment scripts utilizing Windows' built-in `pythonw.exe`. With one command: `python setup_startup.py`, Flow registers itself into Windows Startup. It boots with your computer, lives quietly in the system tray, and consumes negligible idle CPU. You can also generate a one-click Desktop shortcut with `create_desktop_shortcut.py`."*
 
 ---
 
 #### **Scene 6: Open Source & Call to Action (6:30 – End)**
-- **Visual**: VoiceBud GitHub repository page scrolling.
+- **Visual**: Flow GitHub repository page scrolling.
 - **Speaking**:
   > *"The entire project is open-source under the MIT license on my GitHub. You can set it up on Windows or macOS in under 5 minutes. Everything is customizable in `config.yaml`—from your hotkey combo, to the Whisper model size, to your favorite Ollama model.*
   >
@@ -135,7 +135,7 @@ Use these technical explanations during video voiceovers, LinkedIn comments, or 
 ```markdown
 Why pay $15/month for cloud voice dictation when you can run it 100% offline on your own machine? 🎙️⚡
 
-I built VoiceBud — a privacy-first, fully local alternative to Wispr Flow for Windows & macOS.
+I built Flow — a privacy-first, fully local alternative to Wispr Flow for Windows & macOS.
 
 Press `ctrl+shift` anywhere, speak naturally, and clean, punctuated text instantly pastes at your cursor with zero cloud calls.
 
@@ -159,7 +159,7 @@ Engineered with `pythonw.exe` for zero-console background execution, system tray
 
 Includes both real-time dictation and a dark-mode GUI for transcribing audio files (.mp3, .wav, .m4a).
 
-100% Open Source on GitHub: [https://github.com/VictorSylva/VoiceBud]
+100% Open Source on GitHub: [https://github.com/VictorSylva/flow]
 
 What local AI tools are currently in your daily workflow?
 
@@ -179,7 +179,7 @@ Every voice dictation app I tried had the same compromises:
 ❌ Audio recordings uploaded to third-party servers.
 ❌ Clunky terminals needed to keep running.
 
-So I built my own: VoiceBud. 🎙️
+So I built my own: Flow. 🎙️
 
 A local, offline voice dictation assistant that lives in your system tray and pastes clean text into ANY app on your PC when you press `ctrl+shift`.
 
@@ -191,7 +191,7 @@ What made this project exciting from an AI/ML engineering standpoint was optimiz
 Whether you're writing code in VS Code, replying in Slack, or typing in Word, it works everywhere with zero friction.
 
 It is completely free and open-source. Full setup guide and architecture breakdown here:
-👉 [https://github.com/VictorSylva/VoiceBud]
+👉 [https://github.com/VictorSylva/flow]
 
 Check it out, and let me know your thoughts!
 
@@ -216,13 +216,13 @@ Check it out, and let me know your thoughts!
 - **Slide 5 (Key Engineering Optimization 2)**:
   - "Controlling the LLM": How to stop Small Language Models from chatting/hallucinating, and using dynamic routing (<10 words = bypass).
 - **Slide 6 (Results & GitHub)**:
-  - Screenshots of VoiceBud in action, audio file transcription GUI, and link to GitHub.
+  - Screenshots of Flow in action, audio file transcription GUI, and link to GitHub.
 
 ---
 
 ## 🎯 Part 5: Interview & Portfolio Talking Points
 
-If a technical recruiter or hiring manager asks about VoiceBud during an AI/ML interview:
+If a technical recruiter or hiring manager asks about Flow during an AI/ML interview:
 
 #### **Q: "Why did you choose CTranslate2 instead of standard PyTorch or HuggingFace Transformers?"**
 > *"In a real-time desktop application, latency and resource overhead are first-order constraints. Standard PyTorch loads substantial framework overhead and default FP32/FP16 models. CTranslate2 is purpose-built for transformer inference in C++. By applying INT8 quantization and memory pre-allocation, we reduced inference latency by roughly 4x on standard CPUs and kept RAM usage around 150 MB for the `tiny.en` model, making background execution imperceptible to system performance."*

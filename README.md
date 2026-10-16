@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎙️ VoiceBud
+# 🎙️ Flow
 
 **Fully offline, privacy-first voice dictation & audio transcription for Windows & macOS.**  
 *A free, open-source local alternative to Wispr Flow powered by Whisper & Local LLMs.*
@@ -8,7 +8,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10%20--%203.14-3776AB?logo=python&logoColor=white)](https://python.org)
 [![faster-whisper](https://img.shields.io/badge/STT-faster--whisper%20(CTranslate2)-FF6F00)](https://github.com/SYSTRAN/faster-whisper)
 [![Ollama](https://img.shields.io/badge/LLM%20Cleanup-Ollama%20(Qwen%20%2F%20Llama)-000000?logo=ollama&logoColor=white)](https://ollama.com)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-blue)](https://github.com/VictorSylva/VoiceBud)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS-blue)](https://github.com/VictorSylva/flow)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 </div>
@@ -17,9 +17,9 @@
 
 ## 📖 Overview
 
-**VoiceBud** is a desktop application that brings instant, speech-to-text dictation and file transcription to your system without sending a single byte of audio to the cloud.
+**Flow** is a desktop application that brings instant, speech-to-text dictation and file transcription to your system without sending a single byte of audio to the cloud.
 
-Whether you're drafting emails, taking notes, writing code, or transcribing recorded meetings, VoiceBud runs completely on-device. It couples high-throughput CTranslate2 speech recognition with local Small Language Models (SLMs) to strip filler words ("um", "uh", "you know"), fix punctuation, and insert clean text directly at your cursor in any active application.
+Whether you're drafting emails, taking notes, writing code, or transcribing recorded meetings, Flow runs completely on-device. It couples high-throughput CTranslate2 speech recognition with local Small Language Models (SLMs) to strip filler words ("um", "uh", "you know"), fix punctuation, and insert clean text directly at your cursor in any active application.
 
 ```mermaid
 flowchart LR
@@ -74,7 +74,7 @@ flowchart LR
      ```bash
      ollama pull qwen3:4b-instruct
      ```
-   *(Note: If Ollama is not running, VoiceBud will automatically fall back to raw speech transcripts without crashing).*
+   *(Note: If Ollama is not running, Flow will automatically fall back to raw speech transcripts without crashing).*
 
 ---
 
@@ -82,8 +82,8 @@ flowchart LR
 
 ```powershell
 # 1. Clone this repository
-git clone https://github.com/VictorSylva/VoiceBud.git
-cd VoiceBud
+git clone https://github.com/VictorSylva/flow.git
+cd Flow
 
 # 2. Create and activate a virtual environment
 python -m venv .venv
@@ -92,7 +92,7 @@ python -m venv .venv
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Start VoiceBud
+# 4. Start Flow
 python main.py
 ```
 
@@ -107,13 +107,13 @@ ollama serve &
 ollama pull qwen3:4b-instruct
 
 # 2. Clone repository & create virtual environment
-git clone https://github.com/VictorSylva/VoiceBud.git
-cd VoiceBud
+git clone https://github.com/VictorSylva/flow.git
+cd Flow
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# 3. Start VoiceBud
+# 3. Start Flow
 python main.py
 ```
 
@@ -129,7 +129,7 @@ python main.py
 ### 1. Real-Time Voice Dictation
 1. Click into **any** text field (Notepad, browser, Slack, Word, terminal).
 2. Press **`ctrl+shift`** → A floating purple waveform appears at the bottom of your screen.
-3. Speak naturally (VoiceBud strips out "ums", "ahs", and stumbles).
+3. Speak naturally (Flow strips out "ums", "ahs", and stumbles).
 4. Press **`ctrl+shift`** again → Your cleaned transcript is instantly pasted at the cursor!
 
 ### 2. Audio File Transcription (GUI)
@@ -153,20 +153,20 @@ python main.py -f "lecture.wav" -o "notes.txt" --clean
 
 ---
 
-## 🖥️ Deploying VoiceBud (Run Without an Editor or Terminal)
+## 🖥️ Deploying Flow (Run Without an Editor or Terminal)
 
-To use VoiceBud effortlessly every day like native software:
+To use Flow effortlessly every day like native software:
 
 ### Option A: Desktop Shortcut (Double-click to start anytime)
 Generate a silent desktop shortcut:
 ```powershell
 .\.venv\Scripts\python.exe create_desktop_shortcut.py
 ```
-- A **VoiceBud** shortcut is created directly on your Desktop.
-- Double-clicking it launches VoiceBud invisibly in the background using `pythonw.exe` (no command prompt window).
+- A **Flow** shortcut is created directly on your Desktop.
+- Double-clicking it launches Flow invisibly in the background using `pythonw.exe` (no command prompt window).
 
 ### Option B: Auto-Start with Windows (Zero-click everyday use)
-Make VoiceBud launch automatically whenever your computer boots:
+Make Flow launch automatically whenever your computer boots:
 ```powershell
 # Enable Auto-Startup
 .\.venv\Scripts\python.exe setup_startup.py
@@ -177,10 +177,10 @@ Make VoiceBud launch automatically whenever your computer boots:
 
 ### Option C: File Explorer Launchers
 Inside the repository folder, simply double-click:
-- **`start_voicebud.vbs`**: Launches VoiceBud with 0 window flash.
-- **`start_voicebud.bat`**: Launches via batch script.
+- **`start_flow.vbs`**: Launches Flow with 0 window flash.
+- **`start_flow.bat`**: Launches via batch script.
 
-*(To quit VoiceBud when running in the background: Right-click the `🎙️` tray icon and select **"Quit"**, or close `pythonw.exe` in Task Manager).*
+*(To quit Flow when running in the background: Right-click the `🎙️` tray icon and select **"Quit"**, or close `pythonw.exe` in Task Manager).*
 
 ---
 
@@ -226,16 +226,16 @@ inject:
 
 ## 🔬 AI/ML Engineering & Performance Insights
 
-VoiceBud incorporates several key optimizations that make local voice dictation viable on consumer hardware:
+Flow incorporates several key optimizations that make local voice dictation viable on consumer hardware:
 
 1. **Quantization & CTranslate2 Engine**:
-   Standard PyTorch Whisper can be resource-heavy. VoiceBud utilizes `faster-whisper`, a reimplementation using CTranslate2 (a custom C++ inference engine). Using `int8` quantization reduces memory consumption by over 60% and accelerates CPU execution up to 4x compared to native PyTorch.
+   Standard PyTorch Whisper can be resource-heavy. Flow utilizes `faster-whisper`, a reimplementation using CTranslate2 (a custom C++ inference engine). Using `int8` quantization reduces memory consumption by over 60% and accelerates CPU execution up to 4x compared to native PyTorch.
 2. **Silero VAD (Voice Activity Detection)**:
    Whisper models are notoriously susceptible to hallucinations (repeating phrases or generating ghost text during background silence). Enabling `vad_filter=True` gates non-speech audio segments prior to token decoding.
 3. **Circular Pre-Roll Audio Buffer**:
-   Human speech often begins milliseconds before or concurrently with a keypress. VoiceBud continuously maintains a 500 ms FIFO ring buffer. When recording triggers, the pre-roll buffer is prepended, preventing initial consonant truncation.
+   Human speech often begins milliseconds before or concurrently with a keypress. Flow continuously maintains a 500 ms FIFO ring buffer. When recording triggers, the pre-roll buffer is prepended, preventing initial consonant truncation.
 4. **Latency-Aware Dual Path Routing**:
-   Running a 4-billion parameter LLM over an utterance introduces 300–800 ms of latency. For brief phrases (<10 words), grammar and filler issues are statistically negligible. VoiceBud routes short utterances directly to injection, reserving LLM compute only for multi-clause sentences.
+   Running a 4-billion parameter LLM over an utterance introduces 300–800 ms of latency. For brief phrases (<10 words), grammar and filler issues are statistically negligible. Flow routes short utterances directly to injection, reserving LLM compute only for multi-clause sentences.
 5. **Strict Guardrail Prompting with Non-Thinking Enforcements**:
    Instruction-tuned models frequently attempt to answer questions spoken into dictation. The system prompt explicitly constrains the task to deterministic text editing, while setting `"think": false` eliminates latency penalties on reasoning-capable models (e.g., Qwen 3).
 
@@ -244,7 +244,7 @@ VoiceBud incorporates several key optimizations that make local voice dictation 
 ## 📁 Repository Structure
 
 ```
-VoiceBud/
+Flow/
 ├── audio.py                  # Sounddevice recording & 500ms pre-roll circular buffer
 ├── cleanup.py                # Ollama SLM client, prompt engineering, & fallback routing
 ├── config.yaml               # Master application configuration
@@ -254,8 +254,8 @@ VoiceBud/
 ├── overlay.py                # Live waveform amplitude indicator UI
 ├── setup_startup.py          # Windows Startup service installer/uninstaller
 ├── create_desktop_shortcut.py# Windows silent desktop shortcut generator
-├── start_voicebud.vbs        # Zero-console window launcher script
-├── start_voicebud.bat        # Batch launcher script
+├── start_flow.vbs            # Zero-console window launcher script
+├── start_flow.bat            # Batch launcher script
 ├── transcribe.py             # faster-whisper CTranslate2 STT wrapper
 ├── transcribe_window.py      # Tkinter audio file transcription GUI
 ├── requirements.txt          # Python dependencies

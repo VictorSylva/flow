@@ -6,7 +6,7 @@ import threading
 
 BAR_COUNT = 24
 PANEL_W, PANEL_H = 260, 74
-LABEL_H = 20  # bottom strip reserved for the "VoiceBud" label
+LABEL_H = 20  # bottom strip reserved for the "Flow" label
 
 IS_MACOS = sys.platform == "darwin"
 
@@ -61,7 +61,7 @@ if IS_MACOS:
                     NSForegroundColorAttributeName: NSColor.whiteColor(),
                     NSParagraphStyleAttributeName: style,
                 }
-                NSString.stringWithString_("VoiceBud").drawInRect_withAttributes_(
+                NSString.stringWithString_("Flow").drawInRect_withAttributes_(
                     ((0, 4), (b.size.width, 14)), attrs
                 )
 
@@ -128,7 +128,7 @@ class TkOverlay:
         self._is_showing = False
 
         self.root = tk.Tk()
-        self.root.title("VoiceBud")
+        self.root.title("Flow")
         self.root.overrideredirect(True)
         self.root.wm_attributes("-topmost", True)
 
@@ -186,10 +186,10 @@ class TkOverlay:
                 width=bw, capstyle=tk.ROUND, fill=self._bar_color
             )
 
-        # "VoiceBud" label at bottom
+        # "Flow" label at bottom
         self.canvas.create_text(
             w / 2, h - 11,
-            text="VoiceBud",
+            text="Flow",
             fill="#ffffff",
             font=("Segoe UI", 9, "bold")
         )

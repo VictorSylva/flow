@@ -1,6 +1,6 @@
-# Run VoiceBud on Windows or macOS
+# Run Flow on Windows or macOS
 
-VoiceBud is a fully offline dictation and audio file transcription app for **Windows** and **macOS**.
+Flow is a fully offline dictation and audio file transcription app for **Windows** and **macOS**.
 - Real-time dictation at the cursor with `ctrl+shift`.
 - Audio file upload and transcription via GUI or CLI.
 - No cloud, no subscription. Everything runs locally on your machine.
@@ -17,11 +17,11 @@ VoiceBud is a fully offline dictation and audio file transcription app for **Win
     ```powershell
     ollama pull qwen3:4b-instruct
     ```
-  *(Note: If Ollama is not installed or running, VoiceBud automatically falls back to raw transcripts without failing).*
+  *(Note: If Ollama is not installed or running, Flow automatically falls back to raw transcripts without failing).*
 
 ### 2. Set up the project
 
-Open PowerShell or Command Prompt in the project folder (`VoiceBud`):
+Open PowerShell or Command Prompt in the project folder (`Flow`):
 
 ```powershell
 # Create a virtual environment
@@ -36,7 +36,7 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 3. Run VoiceBud
+### 3. Run Flow
 
 ```powershell
 python main.py
@@ -81,23 +81,23 @@ python main.py -f "recording.mp3" --clean
 
 ### 5. Run Without Opening an Editor / Terminal
 
-You have several ways to run VoiceBud without keeping an editor or terminal open:
+You have several ways to run Flow without keeping an editor or terminal open:
 
 #### Option A: Desktop Shortcut (Double-click to start anytime)
 Generate a shortcut on your Desktop:
 ```powershell
 .\.venv\Scripts\python.exe create_desktop_shortcut.py
 ```
-- A **VoiceBud** shortcut is created on your Desktop.
-- Double-clicking it launches VoiceBud silently into the system tray using `pythonw.exe` (no black terminal window).
+- A **Flow** shortcut is created on your Desktop.
+- Double-clicking it launches Flow silently into the system tray using `pythonw.exe` (no black terminal window).
 
 #### Option B: Launch Silently via File Explorer
-In the `VoiceBud` folder, you can simply double-click:
-- **`start_voicebud.vbs`** (completely silent, zero window flash)
-- or **`start_voicebud.bat`**
+In the `Flow` folder, you can simply double-click:
+- **`start_flow.vbs`** (completely silent, zero window flash)
+- or **`start_flow.bat`**
 
 #### Option C: Start Automatically with Windows (Recommended for daily use)
-To make VoiceBud launch silently in the background every time you turn on or log into Windows:
+To make Flow launch silently in the background every time you turn on or log into Windows:
 ```powershell
 .\.venv\Scripts\python.exe setup_startup.py
 ```

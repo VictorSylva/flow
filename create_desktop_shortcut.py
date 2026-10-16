@@ -1,4 +1,4 @@
-"""Create a Desktop shortcut for VoiceBud that runs silently in the background.
+"""Create a Desktop shortcut for Flow that runs silently in the background.
 
 Usage:
   .\\.venv\\Scripts\\python.exe create_desktop_shortcut.py
@@ -11,7 +11,7 @@ import tempfile
 def create_desktop_shortcut():
     # User's Desktop folder
     desktop_dir = os.path.join(os.environ["USERPROFILE"], "Desktop")
-    shortcut_path = os.path.join(desktop_dir, "VoiceBud.lnk")
+    shortcut_path = os.path.join(desktop_dir, "Flow.lnk")
     project_dir = os.path.abspath(os.path.dirname(__file__))
     pythonw = os.path.join(project_dir, ".venv", "Scripts", "pythonw.exe")
     if not os.path.exists(pythonw):
@@ -29,7 +29,7 @@ def create_desktop_shortcut():
         f's.TargetPath = "{pythonw}"',
         f's.Arguments = Chr(34) & "{main_py}" & Chr(34)',
         f's.WorkingDirectory = "{project_dir}"',
-        's.Description = "VoiceBud - Offline Dictation"',
+        's.Description = "Flow - Offline Dictation"',
         's.Save',
     ]
     vbs_content = "\r\n".join(lines) + "\r\n"
@@ -41,8 +41,8 @@ def create_desktop_shortcut():
             temp_vbs = f.name
 
         subprocess.run(["cscript.exe", "//Nologo", temp_vbs], check=True)
-        print("\nSUCCESS: VoiceBud Desktop shortcut created!")
-        print("You can now double-click 'VoiceBud' on your Desktop to run it silently in the system tray.")
+        print("\nSUCCESS: Flow Desktop shortcut created!")
+        print("You can now double-click 'Flow' on your Desktop to run it silently in the system tray.")
     finally:
         if temp_vbs and os.path.exists(temp_vbs):
             os.remove(temp_vbs)
